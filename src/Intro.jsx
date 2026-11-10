@@ -2,15 +2,14 @@ import React, { useEffect, useRef, useState } from "react";
 import { useProgress } from "@react-three/drei";
 
 // The opening ritual shown once per page load, before the site appears: the
-// Dukun star draws itself, the wordmark rises, a counter follows the real
-// asset loading (data first, then the scene's textures), and a curtain lifts
-// onto the page. It never finishes before MIN_MS so the sequence can play,
-// and never hangs past MAX_MS if a loader stalls.
+// wordmark rises letter by letter, a counter follows the real asset loading
+// (data first, then the scene's textures), and a curtain lifts onto the page.
+// It never finishes before MIN_MS so the sequence can play, and never hangs
+// past MAX_MS if a loader stalls.
 const PHRASES = ["Menyalakan dupa", "Membaca mantra", "Memanggil project", "Membuka gerbang"];
 const MIN_MS = 2600;
 const MAX_MS = 9000;
 const EXIT_MS = 1100;
-const SPOKES = [0, 45, 90, 135];
 
 export default function Intro({ ready, name, role, onDone }) {
   const reduced = useRef(matchMedia("(prefers-reduced-motion: reduce)").matches).current;
@@ -91,23 +90,9 @@ export default function Intro({ ready, name, role, onDone }) {
     >
       <div className="intro-glow" aria-hidden="true" />
       <div className="intro-center" aria-hidden="true">
-        <svg className="intro-star" viewBox="-50 -50 100 100">
-          {SPOKES.map((angle, i) => (
-            <line
-              key={angle}
-              x1="0"
-              y1="-44"
-              x2="0"
-              y2="44"
-              pathLength="1"
-              transform={`rotate(${angle})`}
-              style={{ animationDelay: `${0.1 + i * 0.14}s` }}
-            />
-          ))}
-        </svg>
         <p className="intro-word">
           {"Dukun".split("").map((letter, i) => (
-            <span key={i} style={{ animationDelay: `${0.35 + i * 0.07}s` }}>
+            <span key={i} style={{ animationDelay: `${0.15 + i * 0.07}s` }}>
               {letter}
             </span>
           ))}

@@ -246,7 +246,7 @@ export function SiteFooter({ profile }) {
         © {new Date().getFullYear()} {profile.name}
       </span>
       <span>
-        Dukun ✳ ilmu lama, dunia baru.
+        Dukun · ilmu lama, dunia baru.
       </span>
     </footer>
   );
