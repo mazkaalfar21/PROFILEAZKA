@@ -121,11 +121,6 @@ html {
   height: 35px;
   align-items: center;
 }
-.brand-star {
-  font: 30px Inter;
-  position: relative;
-  top: -7px;
-}
 .character-wrap {
   position: absolute;
   inset: 0;

@@ -143,7 +143,7 @@ function CaseBar() {
   return (
     <header className="case-bar">
       <a className="wordmark" href="#home" aria-label="Kembali ke beranda">
-        Dukun<span className="brand-star">✳</span>
+        Dukun
       </a>
       <a className="text-link" href="#projects">
         <span aria-hidden="true">←</span> Semua project

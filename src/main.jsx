@@ -336,7 +336,7 @@ function Home({ items, profile }) {
           )}
           <div className="hero-top hero-fade">
             <a className="wordmark" href="#home" aria-label="Dukun, beranda">
-              Dukun<span className="brand-star">✳</span>
+              Dukun
             </a>
           </div>
           {/* With WebGL the figure is a 2.5D plate inside the canvas so the
