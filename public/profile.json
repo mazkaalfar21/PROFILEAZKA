@@ -1,0 +1,45 @@
+{
+  "name": "Muhammad Azka Alfarisyi",
+  "role": "Forward Deployed Engineer",
+  "location": "Bogor",
+  "bio": "Saya Forward Deployed Engineer di Ocean Space Group. Saya membangun aplikasi web dari panel internal kantor sampai toko online dan website brand, kebanyakan dengan Laravel, Filament, React, dan Vue. Saya senang turun langsung ke pengguna, memahami masalahnya, lalu mengubahnya jadi alat yang benar-benar dipakai setiap hari.",
+  "contacts": {
+    "email": "azkaalfarisyi21@gmail.com",
+    "whatsapp": "089699405754",
+    "linkedin": "https://www.linkedin.com/in/azka-alfarisyi-265208391/",
+    "github": "https://github.com/mazkaalfar21"
+  },
+  "cv": "",
+  "experience": [
+    {
+      "place": "Ocean Space Group · Divisi IT Support",
+      "position": "Forward Deployed Engineer",
+      "period": "Juli 2026 – Desember 2026",
+      "points": [
+        "Membangun aplikasi internal: GAIS (penggabungan dua sistem General Affair jadi satu panel), Modul Web (training karyawan), dan Helpdesk.",
+        "Mengembangkan web untuk unit bisnis grup: OceanMall (e-commerce dengan aplikasi mobile), redesign Unboxing, dan website Complete Mulia.",
+        "Bekerja dalam tim lewat alur branch, pull request ke staging, lalu rilis ke production."
+      ]
+    }
+  ],
+  "certificates": [
+    {
+      "title": "Belajar Dasar AI",
+      "issuer": "Dicoding Indonesia",
+      "date": "25 September 2025",
+      "validUntil": "25 September 2028",
+      "credentialId": "81P2OO0EJZOY",
+      "url": "https://www.dicoding.com/certificates/81P2OO0EJZOY",
+      "image": "/certificates/dicoding-belajar-dasar-ai.jpg"
+    },
+    {
+      "title": "Memulai Pemrograman dengan Java",
+      "issuer": "Dicoding Indonesia",
+      "date": "18 September 2025",
+      "validUntil": "18 September 2028",
+      "credentialId": "98XWOG8O9ZM3",
+      "url": "https://www.dicoding.com/certificates/98XWOG8O9ZM3",
+      "image": "/certificates/dicoding-memulai-pemrograman-java.jpg"
+    }
+  ]
+}

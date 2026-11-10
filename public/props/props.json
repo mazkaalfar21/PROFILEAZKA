@@ -1,0 +1,284 @@
+[
+  {
+    "id": "gais",
+    "image": "/projects/gais.jpg",
+    "thumb": "/projects/gais-thumb.jpg",
+    "name": "GAIS",
+    "nameEn": "Satu panel, semua urusan kantor",
+    "blurb": "Aset tercatat, berita acara rapi, gangguan dilaporkan. Tidak ada barang kantor yang hilang secara gaib lagi.",
+    "stack": "Laravel 12 · Filament 4 · MySQL",
+    "year": "2026",
+    "role": "Fullstack · kerja tim",
+    "summary": "General Affair Information System: inventaris aset, berita acara, audit, pengajuan barang, dan lapor gangguan dalam satu panel.",
+    "problem": "Pekerjaan General Affair tersebar di dua aplikasi internal yang berjalan terpisah: Shelf untuk aset dan sumo-web untuk pengajuan barang serta gangguan. Data dobel, alur tidak nyambung, dan staf harus berpindah-pindah sistem.",
+    "solution": "Kedua aplikasi digabung jadi satu panel Filament. Modul sumo-web dibangun ulang sebagai resource Filament, data lamanya dipindahkan sekali lewat fitur Impor Data Sumo, lalu aplikasi lama dimatikan. Semua alur kini lewat satu panel staf di /admin.",
+    "features": [
+      "Inventaris aset dengan QR publik, transfer, dan berita acara serah terima/pengembalian",
+      "Rekonsiliasi audit lewat export–import dan laporan hasil banding",
+      "Pengajuan barang dan lapor gangguan dengan foto sebelum–sesudah",
+      "Checksheet kendaraan dan OB, pengingat dokumen, asuransi dan sewa",
+      "Notifikasi WhatsApp dan panduan pengguna bergambar di dalam aplikasi"
+    ],
+    "gallery": [
+      {
+        "src": "/projects/gais-2.jpg",
+        "caption": "Dasbor GAIS"
+      },
+      {
+        "src": "/projects/gais-3.jpg",
+        "caption": "Detail aset dengan atribut dan QR"
+      },
+      {
+        "src": "/projects/gais-4.jpg",
+        "caption": "Form lapor gangguan"
+      }
+    ],
+    "links": {
+      "live": "https://gais.oceanspace.co.id"
+    },
+    "logo": "/logos/gais.svg",
+    "logoBg": "#0e1838"
+  },
+  {
+    "id": "modul",
+    "image": "/projects/modul.jpg",
+    "thumb": "/projects/modul-thumb.jpg",
+    "name": "Modul Web",
+    "nameEn": "Ilmu turun-temurun",
+    "blurb": "Training, modul, kuis, dan galeri video materi di satu tempat. Ilmu diturunkan ke karyawan baru tanpa perlu bertapa.",
+    "stack": "Laravel 13 · Blade · MySQL",
+    "year": "2026",
+    "role": "Fullstack · kerja tim",
+    "summary": "Platform training karyawan: modul belajar, kuis, rekap nilai, dan galeri video materi.",
+    "problem": "Materi training dan dokumen internal tersebar, dan peserta tidak punya satu tempat untuk belajar, mengerjakan kuis, lalu melihat nilainya. Admin juga kesulitan merekap hasil per divisi dan posisi.",
+    "solution": "Aplikasi Laravel dengan panel admin untuk menyusun training, modul, dan soal, ditambah portal peserta yang dibuka lewat tautan WhatsApp bertoken, jadi peserta tidak perlu membuat akun. Login staf memakai password atau OTP.",
+    "features": [
+      "Training dan modul belajar dengan progres per item",
+      "Bank soal, kuis, dan rekap nilai",
+      "Portal peserta lewat tautan WhatsApp bertoken",
+      "Galeri video materi (YouTube dan unggahan) beserta komentar",
+      "Dokumen bervers, master area, divisi, posisi, dan sinkronisasi karyawan"
+    ],
+    "gallery": [
+      {
+        "src": "/projects/modul-2.jpg",
+        "caption": "Halaman masuk dengan opsi WhatsApp"
+      }
+    ],
+    "links": {},
+    "logo": "/logos/modul.svg",
+    "logoBg": "#2a0d1e"
+  },
+  {
+    "id": "unboxing",
+    "image": "/projects/unboxing.jpg",
+    "thumb": "/projects/unboxing-thumb.jpg",
+    "name": "Unboxing",
+    "nameEn": "Etalase tanpa kaca",
+    "blurb": "Redesign unboxing.id: ribuan gawai, filter yang nurut, 69 toko di peta. Bandingkan empat HP sekaligus tanpa perlu menerawang.",
+    "stack": "React · Vite · React Router",
+    "year": "2026",
+    "role": "Fullstack · kerja tim",
+    "summary": "Redesign unboxing.id: katalog ±1.250 gawai dengan filter lengkap, perbandingan produk, dan peta 69 toko.",
+    "problem": "Situs unboxing.id lama sulit dijelajahi: filter terbatas, tidak bisa membandingkan produk, dan beberapa harga tampil salah karena diinput sebagai teks.",
+    "solution": "Redesign sebagai SPA React. Katalog diambil dengan scraper dari REST API WordPress, brand dan kategori dikoreksi, lalu harga diambil dari spesifikasi produk. Semua filter disimpan di URL supaya hasil pencarian bisa dibagikan.",
+    "features": [
+      "Katalog dengan filter kategori, harga, brand, RAM, penyimpanan, dan urutan",
+      "Bandingkan hingga 4 produk, sorot nilai terbaik, mode hanya perbedaan",
+      "Daftar 69 toko per kota dengan peta interaktif dan tombol rute",
+      "Peta titik toko di footer, dibangun dari data Natural Earth dan KML",
+      "Tanya harga via WhatsApp dari halaman detail"
+    ],
+    "gallery": [
+      {
+        "src": "/projects/unboxing-2.jpg",
+        "caption": "Katalog dengan filter"
+      },
+      {
+        "src": "/projects/unboxing-3.jpg",
+        "caption": "Daftar dan peta toko"
+      }
+    ],
+    "links": {},
+    "logo": "/logos/unboxing.png",
+    "logoBg": "#0d0d0d"
+  },
+  {
+    "id": "completemulia",
+    "image": "/projects/completemulia.jpg",
+    "thumb": "/projects/completemulia-thumb.jpg",
+    "name": "Complete Mulia",
+    "nameEn": "Emas yang melayang",
+    "blurb": "Toko mas dari Arjawinangun. Cincin melayang di atas tangan, konsultasi lewat WhatsApp. Kilaunya asli, tanpa susuk.",
+    "stack": "React · Vite · Three.js",
+    "year": "2026",
+    "role": "Fullstack · kerja tim",
+    "summary": "Website Toko Mas Complete Mulia (Cirebon) dengan cincin emas 3D di beranda dan konsultasi lewat WhatsApp.",
+    "problem": "Toko mas lokal butuh etalase online yang terasa premium, tapi tetap sederhana bagi pembeli yang lebih nyaman bertanya langsung lewat WhatsApp.",
+    "solution": "Situs React dengan cincin emas 3D (Three.js, dimuat terpisah agar halaman tetap cepat) di atas tangan 3D, katalog produk, promo, dan wishlist. Setiap produk mengarah ke konsultasi WhatsApp.",
+    "features": [
+      "Cincin emas 3D interaktif di beranda",
+      "Katalog, detail produk, dan wishlist",
+      "Halaman promo & kabar serta kontak toko",
+      "Harga emas per gram bisa diatur dari satu file data",
+      "Warna mengikuti identitas Complete Mulia"
+    ],
+    "gallery": [
+      {
+        "src": "/projects/completemulia-2.jpg",
+        "caption": "Katalog perhiasan"
+      },
+      {
+        "src": "/projects/completemulia-3.jpg",
+        "caption": "Detail produk"
+      }
+    ],
+    "links": {},
+    "logo": "/logos/completemulia.png",
+    "logoBg": "#2f1a37"
+  },
+  {
+    "id": "oceanmall",
+    "image": "/projects/oceanmall.jpg",
+    "thumb": "/projects/oceanmall-thumb.jpg",
+    "name": "OceanMall",
+    "nameEn": "Pasar yang tidak pernah tutup",
+    "blurb": "Toko online lengkap: keranjang, checkout, akun, panel admin, plus aplikasi mobile. Belanja jalan terus, malam Jumat sekalipun.",
+    "stack": "Laravel 13 · Shopper · Inertia · Vue · Expo",
+    "year": "2026",
+    "role": "Fullstack · kerja tim",
+    "summary": "E-commerce gawai dan aksesoris: storefront, checkout, panel admin, API pelanggan, dan aplikasi mobile.",
+    "problem": "Dibutuhkan toko online yang siap trafik tinggi, lengkap dari katalog sampai checkout, dengan panel admin dan aplikasi mobile yang memakai data yang sama.",
+    "solution": "Storefront Laravel dengan Shopper sebagai inti e-commerce dan Inertia + Vue untuk tampilan. API pelanggan (Sanctum) melayani aplikasi mobile Expo. Production memakai Octane (FrankenPHP), PostgreSQL, dan Redis untuk 500+ pengguna bersamaan.",
+    "features": [
+      "Storefront: beranda, produk, kategori, koleksi, dan pencarian",
+      "Keranjang, zona pengiriman, dan checkout",
+      "Akun pelanggan dengan pesanan, alamat, dan 2FA",
+      "Panel admin Shopper di /cpanel",
+      "Customer API /api/v1 dan aplikasi mobile Expo"
+    ],
+    "gallery": [
+      {
+        "src": "/projects/oceanmall-2.jpg",
+        "caption": "Katalog produk"
+      },
+      {
+        "src": "/projects/oceanmall-3.jpg",
+        "caption": "Detail produk"
+      }
+    ],
+    "links": {},
+    "logo": "/logos/oceanmall.png",
+    "logoBg": "#f4f7fb"
+  },
+  {
+    "id": "tixid",
+    "image": "/projects/tixid.jpg",
+    "thumb": "/projects/tixid-thumb.jpg",
+    "name": "Tixid",
+    "nameEn": "Kursi pilihan semesta",
+    "blurb": "Jadwal film, pilih kursi, bayar, tiket jadi PDF. Kursi terbaik sudah ditakdirkan, tinggal dipesan.",
+    "stack": "Laravel 12 · Blade · MySQL",
+    "year": "2025",
+    "role": "Fullstack · dikerjakan sendiri",
+    "summary": "Aplikasi pemesanan tiket bioskop: jadwal film, pilih kursi, pembayaran, dan tiket PDF.",
+    "problem": "Latihan membangun alur pemesanan tiket yang lengkap: dari film dan jadwal per bioskop, pemilihan kursi, sampai bukti pembayaran dan tiket yang bisa diunduh.",
+    "solution": "Aplikasi Laravel dengan peran admin, staf, dan pengguna. Admin mengelola bioskop, film, promo, dan jadwal; pengguna memilih kursi per jam tayang, membayar, mengunggah bukti, lalu mengunduh tiket PDF.",
+    "features": [
+      "Daftar film sedang tayang dengan filter bioskop",
+      "Pemilihan kursi per jadwal dan jam tayang",
+      "Pembayaran, bukti bayar, dan ekspor tiket PDF",
+      "Dashboard admin dengan grafik tiket",
+      "Manajemen bioskop, film, promo, dan jadwal"
+    ],
+    "gallery": [
+      {
+        "src": "/projects/tixid-2.jpg",
+        "caption": "Daftar film sedang tayang"
+      }
+    ],
+    "links": {},
+    "logoText": "TIXID",
+    "logoBg": "#0c1a3d"
+  },
+  {
+    "id": "helpdesk",
+    "image": "/projects/helpdesk.jpg",
+    "thumb": "/projects/helpdesk-thumb.jpg",
+    "name": "Helpdesk",
+    "nameEn": "Semua keluhan didengar",
+    "blurb": "Tiket, prioritas, dan status dalam satu panel, ditemani AI yang ikut menjawab. Masalah yang tak kasat mata pun tercatat.",
+    "stack": "Laravel 13 · Filament 5 · Sanctum",
+    "year": "2026",
+    "role": "Fullstack · kerja tim",
+    "summary": "Panel admin dan API helpdesk: tiket keluhan dengan prioritas, status, unit, kategori masalah, dan asisten AI.",
+    "problem": "Keluhan dan permintaan bantuan masuk tanpa jalur yang jelas, sehingga sulit melacak siapa yang menangani, seberapa mendesak, dan sudah sampai mana.",
+    "solution": "Panel Filament 5 dengan tema Mekaya: tiket punya prioritas, status, penanggung jawab, dan kategori masalah. Data master dikelola admin, registrasi publik dimatikan, dan API Sanctum disiapkan untuk aplikasi lain.",
+    "features": [
+      "Tiket dengan prioritas, status, penanggung jawab, dan kategori",
+      "Master badan usaha, unit, prioritas, dan status",
+      "AI Chat dan tombol Ask AI di panel",
+      "Manajemen akses: hanya admin yang menambah akun",
+      "API-ready dengan Laravel Sanctum"
+    ],
+    "gallery": [
+      {
+        "src": "/projects/helpdesk-2.jpg",
+        "caption": "Dasbor dan menu panel"
+      }
+    ],
+    "links": {},
+    "logo": "/logos/helpdesk.svg",
+    "logoBg": "#2b1405"
+  },
+  {
+    "id": "shoestore",
+    "image": "/projects/shoestore.jpg",
+    "thumb": "/projects/shoestore-thumb.jpg",
+    "name": "ShoeStore",
+    "nameEn": "Langkah yang sudah diramal",
+    "blurb": "Toko sepatu premium serba gelap: katalog, keranjang, checkout, sampai laporan PDF dan Excel. Ukuranmu sudah terbaca sebelum kamu memilih.",
+    "stack": "React · Express · Sequelize · MySQL",
+    "year": "2026",
+    "role": "Fullstack · dikerjakan sendiri",
+    "summary": "E-commerce sepatu premium dengan katalog, keranjang, checkout, dan panel admin lengkap dengan laporan.",
+    "problem": "Membangun toko online sepatu dari nol dengan dua sisi yang sama-sama lengkap: pelanggan yang mencari, memilih ukuran, dan checkout; serta admin yang mengelola brand, kategori, ukuran, stok, order, dan laporan.",
+    "solution": "Frontend React (Vite, Tailwind, React Router) dan REST API Express dengan Sequelize di atas MySQL. Login JWT dengan peran admin dan customer, stok dicatat per ukuran, dan checkout berjalan dalam satu transaksi database supaya stok dan order tidak pernah selisih. Admin bisa mengekspor data produk dan order ke PDF dan Excel.",
+    "features": [
+      "Katalog dengan pencarian dan filter brand, kategori, dan ukuran",
+      "Stok per ukuran dan keranjang belanja",
+      "Checkout dalam satu transaksi database",
+      "Login JWT dengan peran admin dan customer",
+      "Dashboard admin dengan grafik penjualan dan produk terlaris",
+      "Ekspor laporan produk dan order ke PDF dan Excel"
+    ],
+    "gallery": [
+      {
+        "src": "/projects/shoestore-2.jpg",
+        "caption": "Katalog dengan filter brand, kategori, dan ukuran"
+      },
+      {
+        "src": "/projects/shoestore-3.jpg",
+        "caption": "Detail produk dan pilihan ukuran"
+      },
+      {
+        "src": "/projects/shoestore-4.jpg",
+        "caption": "Panel admin untuk produk"
+      }
+    ],
+    "links": {
+      "repos": [
+        {
+          "label": "Kode frontend",
+          "href": "https://github.com/mazkaalfar21/eCommerce-FrontEnd"
+        },
+        {
+          "label": "Kode backend",
+          "href": "https://github.com/mazkaalfar21/eCommerce-BackEnd"
+        }
+      ]
+    },
+    "logo": "/logos/shoestore.png",
+    "logoBg": "#120707"
+  }
+]

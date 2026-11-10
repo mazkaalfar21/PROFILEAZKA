@@ -1,0 +1,13 @@
+node_modules/
+dist/
+.DS_Store
+artifacts/
+
+# Local backups of earlier artwork (kept on disk, not published)
+_arsip-*/
+
+# Editor / agent settings
+.claude/
+
+# Scratch scripts left over from the original template
+scripts/.*.mjs
