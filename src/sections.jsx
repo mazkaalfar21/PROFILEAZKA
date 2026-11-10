@@ -81,7 +81,7 @@ export function About({ profile }) {
   return (
     <section id="about" className="portfolio-section about" aria-labelledby="about-title">
       <div className="about-figure reveal">
-        <img src={asset("/character.png")} alt="Karakter Dukun Gen Z, persona situs ini" loading="lazy" />
+        <img src={asset("/about.jpg")} alt={`Foto ${profile.name}`} loading="lazy" />
       </div>
       <div className="about-copy reveal">
         <p className="section-kicker">Tentang</p>
