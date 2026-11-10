@@ -2077,3 +2077,16 @@ img.project-logo-mark{width:auto;height:auto;min-height:26%}
     transition: none;
   }
 }
+
+/* ---------------------------------------------------------------------- */
+/* No visible scrollbar                                                    */
+/* ---------------------------------------------------------------------- */
+/* The page still scrolls (wheel, touch, keys, the nav); only the bar is
+   hidden, in every scrolling element. */
+* {
+  scrollbar-width: none; /* Firefox, Chrome 121+ */
+  -ms-overflow-style: none; /* old Edge */
+}
+*::-webkit-scrollbar {
+  display: none; /* Safari, older Chrome */
+}
