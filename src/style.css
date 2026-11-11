@@ -1804,10 +1804,53 @@ input {
 .text-link{display:inline-flex;align-items:center;gap:10px;font-size:14px;color:var(--kapur);border-bottom:1px solid rgba(247,242,236,.35);padding-bottom:4px;transition:color .25s ease,border-color .25s ease,gap .25s ease}
 .text-link:hover{color:var(--kunyit);border-color:var(--kunyit);gap:14px}
 
-/* Reveal on scroll (the class is flipped by useReveal). */
-.reveal{opacity:0;transform:translateY(36px);transition:opacity .9s ease,transform 1s cubic-bezier(.22,1,.36,1)}
-.reveal.is-in{opacity:1;transform:none}
-@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+/* Reveal on scroll (the class is flipped by useReveal). It moves with the
+   individual `translate`/`scale` properties so it never fights an element's
+   own transform (hover lifts, the screenshot settle, GSAP parallax). */
+:root{--ease-out:cubic-bezier(.22,1,.36,1)}
+.reveal{opacity:0;translate:0 48px;transition:opacity 1s var(--ease-out),translate 1.2s var(--ease-out);transition-delay:var(--rd,0s)}
+.reveal.is-in{opacity:1;translate:none}
+
+/* Blocks whose lines arrive one after another instead of as one slab. */
+.section-head.reveal,.about-copy.reveal,.project-row.reveal{opacity:1;translate:none}
+.section-head.reveal>*,.about-copy.reveal>*,.project-row.reveal .project-info>*{opacity:0;translate:0 34px;filter:blur(6px);transition:opacity .9s var(--ease-out),translate 1.1s var(--ease-out),filter .9s ease;transition-delay:calc(var(--s,0) * 90ms + var(--base,0ms))}
+.section-head.reveal.is-in>*,.about-copy.reveal.is-in>*,.project-row.reveal.is-in .project-info>*{opacity:1;translate:none;filter:none}
+:is(.section-head,.about-copy,.project-info)>:nth-child(2){--s:1}
+:is(.section-head,.about-copy,.project-info)>:nth-child(3){--s:2}
+:is(.section-head,.about-copy,.project-info)>:nth-child(4){--s:3}
+:is(.section-head,.about-copy,.project-info)>:nth-child(5){--s:4}
+:is(.section-head,.about-copy,.project-info)>:nth-child(6){--s:5}
+.about-copy{--base:180ms}
+.project-info{--base:200ms}
+.project-row.reveal .project-info>.text-link{transition:opacity .9s var(--ease-out),translate 1.1s var(--ease-out),filter .9s ease,color .25s ease,border-color .25s ease,gap .25s ease;transition-delay:calc(var(--s,0) * 90ms + var(--base,0ms)),calc(var(--s,0) * 90ms + var(--base,0ms)),calc(var(--s,0) * 90ms + var(--base,0ms)),0s,0s,0s}
+
+/* The screenshot rises and grows into place; the text follows it in. */
+.project-row.reveal .project-shot{opacity:0;translate:0 70px;scale:.94;transition:opacity 1s var(--ease-out),translate 1.3s var(--ease-out),scale 1.3s var(--ease-out)}
+.project-row.reveal.is-in .project-shot{opacity:1;translate:none;scale:1}
+.project-parallax{display:block;will-change:transform}
+
+/* The portrait unmasks from its centre. */
+.about-figure.reveal{translate:none;clip-path:inset(14% 14% 14% 14% round 14px);transition:opacity 1s var(--ease-out),clip-path 1.4s var(--ease-out)}
+.about-figure.reveal.is-in{clip-path:inset(0 0 0 0 round 14px)}
+
+/* Cards in a row land a beat apart; the card keeps its own hover fade. */
+.cert-card.reveal{transition:opacity 1s var(--ease-out),translate 1.2s var(--ease-out),border-color .25s ease;transition-delay:var(--rd,0s),var(--rd,0s),0s}
+.cert-card.reveal:nth-child(2n){--rd:.15s}
+.contact>.reveal:nth-child(2){--rd:.1s}
+.contact>.reveal:nth-child(3){--rd:.2s}
+.contact>.reveal:nth-child(4){--rd:.3s}
+
+/* Thin progress line at the very top of the page, scrubbed by GSAP. */
+.scroll-progress{position:fixed;top:0;left:0;right:0;height:2px;z-index:40;pointer-events:none}
+.scroll-progress i{display:block;height:100%;background:linear-gradient(90deg,var(--sirih),var(--kunyit));transform-origin:left;transform:scaleX(0)}
+
+/* Big section headings: the outlined word drifts sideways with the scroll. */
+.portfolio-section{overflow-x:clip}
+.portfolio-section h2 .hollow{display:inline-block}
+
+@media(prefers-reduced-motion:reduce){
+ .reveal,.section-head.reveal>*,.about-copy.reveal>*,.project-info>*,.project-row .project-shot,.about-figure.reveal{opacity:1!important;translate:none!important;scale:none!important;filter:none!important;clip-path:none!important;transition:none!important}
+}
 
 /* Project list: large alternating rows. */
 .projects{border-top:1px solid rgba(247,242,236,.08)}
@@ -1852,9 +1895,15 @@ img.project-logo-mark{width:auto;height:auto;min-height:26%}
 
 /* Experience timeline */
 .experience{border-top:1px solid rgba(247,242,236,.08)}
-.timeline{list-style:none;margin:0;padding:0;border-left:1px solid rgba(232,179,60,.35)}
+/* The rail draws itself down as you scroll (GSAP tweens --line 0 → 1). */
+.timeline{list-style:none;margin:0;padding:0 0 0 1px;position:relative}
+.timeline::before{content:"";position:absolute;left:0;top:0;bottom:0;width:1px;background:linear-gradient(var(--kunyit),rgba(232,179,60,.35));transform-origin:top;transform:scaleY(var(--line,1))}
 .timeline-item{display:grid;grid-template-columns:200px 1fr;gap:30px;padding:0 0 60px 34px;position:relative}
-.timeline-item::before{content:"";position:absolute;left:-6px;top:6px;width:11px;height:11px;border-radius:50%;background:var(--kunyit)}
+.timeline-item::before{content:"";position:absolute;left:-6px;top:6px;width:11px;height:11px;border-radius:50%;background:var(--kunyit);box-shadow:0 0 0 0 rgba(232,179,60,.5)}
+.timeline-item.reveal::before{scale:0;transition:scale .7s var(--ease-out) .3s}
+.timeline-item.reveal.is-in::before{scale:1;animation:dot-ping 1.4s ease-out .5s}
+@keyframes dot-ping{from{box-shadow:0 0 0 0 rgba(232,179,60,.55)}to{box-shadow:0 0 0 16px rgba(232,179,60,0)}}
+@media(prefers-reduced-motion:reduce){.timeline-item.reveal::before{scale:none;transition:none;animation:none}}
 .timeline-period{font-size:13px;color:var(--asap);letter-spacing:.04em;padding-top:4px}
 .timeline-item h3{font-size:26px;letter-spacing:-.02em}
 .timeline-place{margin-top:8px;font-family:Bitter,serif;color:var(--kunyit)}

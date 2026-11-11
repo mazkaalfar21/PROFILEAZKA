@@ -45,7 +45,9 @@ export function ProjectList({ items }) {
         {items.map((item, i) => (
           <li key={item.id} className={"project-row reveal" + (i % 2 ? " is-flipped" : "")}>
             <a className="project-shot" href={projectHref(item.id)} onClick={rememberScroll} tabIndex={-1} aria-hidden="true">
-              <img className="project-screenshot" src={item.image} alt="" loading="lazy" />
+              <span className="project-parallax">
+                <img className="project-screenshot" src={item.image} alt="" loading="lazy" />
+              </span>
               {/* The project's logo plays first as the row scrolls in, then
                   the curtain lifts onto the screenshot (CSS, keyed on .is-in). */}
               <span className="project-logo" style={{ "--logo-bg": item.logoBg || "#1c0f0c" }}>

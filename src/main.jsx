@@ -269,6 +269,35 @@ function Home({ items, profile }) {
           },
         });
       }
+      // A thin line along the top of the window tracks how far down you are.
+      gsap.to(".scroll-progress i", {
+        scaleX: 1,
+        ease: "none",
+        scrollTrigger: { start: 0, end: "max", scrub: reduced ? true : 0.4 },
+      });
+      if (!reduced) {
+        // Scroll-linked depth in the portfolio sections: images drift a little
+        // slower than the page, the outlined heading words slide sideways and
+        // the experience rail draws itself down. All scrubbed, so they follow
+        // Lenis's smoothed scroll exactly.
+        const ride = (trigger) => ({ trigger, start: "top bottom", end: "bottom top", scrub: true });
+        gsap.utils.toArray(".project-parallax").forEach((el) =>
+          gsap.fromTo(el, { yPercent: -5, scale: 1.12 }, { yPercent: 5, scale: 1.12, ease: "none", scrollTrigger: ride(el.parentElement) }),
+        );
+        const portrait = root.current.querySelector(".about-figure img");
+        if (portrait)
+          gsap.fromTo(portrait, { yPercent: -6, scale: 1.14 }, { yPercent: 6, scale: 1.14, ease: "none", scrollTrigger: ride(portrait.parentElement) });
+        gsap.utils.toArray(".portfolio-section h2 .hollow").forEach((el) =>
+          gsap.fromTo(el, { x: 48 }, { x: -24, ease: "none", scrollTrigger: ride(el.closest("h2")) }),
+        );
+        const rail = root.current.querySelector(".timeline");
+        if (rail)
+          gsap.fromTo(rail, { "--line": 0 }, {
+            "--line": 1,
+            ease: "none",
+            scrollTrigger: { trigger: rail, start: "top 75%", end: "bottom 65%", scrub: true },
+          });
+      }
       // Arriving with a section anchor (#projects, #contact…) or coming back
       // from a case study: put the reader where they meant to be. Wait for the
       // web fonts first; the big headings re-wrap when they swap in and push
@@ -310,6 +339,9 @@ function Home({ items, profile }) {
         />
       )}
       <div className="ambient-base" />
+      <div className="scroll-progress" aria-hidden="true">
+        <i />
+      </div>
       <nav className="site-nav" aria-label="Navigasi utama">
         {SECTIONS.filter(([id]) =>
           id === "experience" ? profile.experience?.length :
