@@ -9,6 +9,7 @@ const base = process.env.TEST_URL || "http://localhost:5173";
 await mkdir("artifacts", { recursive: true });
 const PIN_END = 2.2; // JOURNEY.scrollVh / 100
 const PROJECTS = JSON.parse(await readFile("public/props/props.json", "utf8")).length;
+const CERTIFICATES = JSON.parse(await readFile("public/profile.json", "utf8")).certificates?.length ?? 0;
 try {
   const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
   const errors = [];
@@ -48,10 +49,11 @@ try {
   const listTop = await page.evaluate(() => document.querySelector("#projects").getBoundingClientRect().top);
   assert(Math.abs(listTop) < 80, `back lands on the project list (top ${listTop})`);
   assert.equal(await page.locator(".project-row").count(), PROJECTS, "every project has a row");
+  assert.equal(await page.locator(".project-row .pusaka-object").count(), PROJECTS, "every GAIB row shows its heirloom");
 
   // Portfolio sections exist and the scene is faded out under them.
   for (const id of ["about", "certificates", "contact"]) assert(await page.locator("#" + id).count(), `#${id} section`);
-  assert.equal(await page.locator(".cert-card").count(), 2, "two certificates");
+  assert.equal(await page.locator(".cert-card").count(), CERTIFICATES, "every certificate has a card");
   await page.evaluate(() => scrollTo(0, document.querySelector("#contact").getBoundingClientRect().top + scrollY));
   await page.waitForTimeout(1500);
   assert.equal(
@@ -61,6 +63,21 @@ try {
   );
   await page.evaluate(() => scrollTo(0, 0));
   await page.waitForTimeout(1500);
+
+  // The world switch: NYATA drops the 3D scene for the light page, GAIB
+  // brings it back, and unmounting the scene is not taken as a WebGL failure.
+  await page.getByRole("button", { name: "Nyata", exact: true }).click();
+  await page.waitForTimeout(3000);
+  assert.equal(await page.evaluate(() => document.documentElement.dataset.dunia), "nyata");
+  assert.equal(await page.locator("canvas").count(), 0, "no 3D scene in NYATA");
+  assert(await page.locator(".hero-nyata h1").isVisible(), "NYATA hero");
+  assert.equal(await page.locator(".project-card").count(), PROJECTS, "NYATA lists every project as a card");
+  assert.equal(await page.locator(".project-pusaka").count(), 0, "no heirlooms in NYATA");
+  await page.screenshot({ path: "artifacts/nyata.png" });
+  await page.getByRole("button", { name: "Gaib", exact: true }).click();
+  await page.waitForTimeout(3500);
+  assert.equal(await page.locator("canvas").count(), 1, "scene back in GAIB");
+  assert.equal(await page.locator(".static-bubble").count(), 0, "leaving NYATA is not a context failure");
 
   // WebGL context loss swaps in the static hero; the brand still renders.
   await page.evaluate(() =>
@@ -101,7 +118,7 @@ try {
   assert.equal(await noGL.locator(".project-row").count(), PROJECTS, "project list without WebGL");
 
   console.log(
-    "Passed: hero render, zoom overlay, case study page, prev/next, live link, back to list, portfolio sections, scene fade, context loss, reduced motion, mobile overflow, no-WebGL.",
+    "Passed: hero render, zoom overlay, case study page, prev/next, live link, back to list, portfolio sections, scene fade, world switch, context loss, reduced motion, mobile overflow, no-WebGL.",
   );
 } finally {
   await browser.close();

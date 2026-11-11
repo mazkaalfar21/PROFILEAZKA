@@ -20,6 +20,7 @@ export function withAssets(items, profile) {
       thumb: asset(item.thumb),
       logo: asset(item.logo),
       medallion: asset(item.medallion),
+      pusaka: item.pusaka && { ...item.pusaka, image: asset(item.pusaka.image), cutout: asset(item.pusaka.cutout) },
       gallery: item.gallery?.map((shot) => ({ ...shot, src: asset(shot.src) })),
     })),
     profile: {

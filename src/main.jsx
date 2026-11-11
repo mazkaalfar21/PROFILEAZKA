@@ -11,10 +11,15 @@ import { scrollState as state } from "./scrollState";
 import { projectHref, rememberScroll, takeScroll, useRoute } from "./router";
 import { About, Certificates, Contact, Experience, ProjectList, SECTIONS, SiteFooter, useReveal } from "./sections";
 import ProjectPage from "./ProjectPage";
+import Orb from "./Orb";
+import { COPY } from "./copy";
 import { OUTFITS } from "./outfits";
 import { asset, withAssets } from "./asset";
+import { DuniaSwitch, DuniaVeil, NyataHero, applyDunia, captureAnchor, coverVeil, savedDunia, storeDunia, uncoverVeil } from "./dunia";
 import "./style.css";
 gsap.registerPlugin(ScrollTrigger, useGSAP);
+// Set the world before the first paint so a NYATA visitor never sees a dark flash.
+applyDunia(savedDunia());
 const AUTO_MS = 3000; // how long each project stays over the hand before sliding on
 const OUTFIT_KEY = "dukun:outfit";
 
@@ -69,14 +74,44 @@ function App() {
   // The intro plays once per page load, over whichever page is underneath;
   // moving between home and a case study afterwards does not replay it.
   const [introDone, setIntroDone] = useState(false);
+  // Which world the page shows. Switching runs the smoke veil: cover, swap the
+  // page underneath (Home rebuilds and lands on the same section), uncover.
+  const [dunia, setDunia] = useState(savedDunia);
+  const veil = useRef();
+  const switching = useRef(false);
+  const switchDunia = async (next) => {
+    if (switching.current || next === dunia) return;
+    switching.current = true;
+    try {
+      await coverVeil(veil.current, next);
+      const onHome = route.page !== "project";
+      state.pendingAnchor = onHome ? captureAnchor() : null;
+      const settled = new Promise((resolve) => {
+        state.settle = resolve;
+        setTimeout(resolve, onHome ? 1600 : 120);
+      });
+      applyDunia(next);
+      storeDunia(next);
+      setDunia(next);
+      await settled;
+      state.settle = null;
+      // Give the 3D scene a moment to draw its first frame before the reveal.
+      if (onHome && next === "gaib") await new Promise((r) => setTimeout(r, 350));
+      await uncoverVeil(veil.current);
+    } finally {
+      switching.current = false;
+    }
+  };
   return (
     <>
       {data &&
         (route.page === "project" ? (
           <ProjectPage items={data.items} profile={data.profile} id={route.id} />
         ) : (
-          <Home items={data.items} profile={data.profile} />
+          <Home items={data.items} profile={data.profile} nyata={dunia === "nyata"} onCross={switchDunia} />
         ))}
+      {data && <DuniaSwitch value={dunia} onChange={switchDunia} />}
+      <DuniaVeil veilRef={veil} />
       {!introDone && (
         <Intro
           ready={!!data}
@@ -89,7 +124,7 @@ function App() {
   );
 }
 
-function Home({ items, profile }) {
+function Home({ items, profile, nyata, onCross }) {
   const root = useRef(),
     lenis = useRef(),
     label = useRef(),
@@ -140,7 +175,18 @@ function Home({ items, profile }) {
     }
     return () => q.removeEventListener("change", change);
   }, []);
-  useReveal();
+  // Changing worlds unmounts or remounts the scene; start it awake and let
+  // the fresh scroll triggers decide again whether it is covered.
+  useEffect(() => {
+    sceneAway.current = false;
+    setPaused(false);
+    panelLiveRef.current = false;
+    setPanelLive(false);
+  }, [nyata]);
+  // Each world has its own words; the NYATA project grid is new markup, so
+  // the scroll-in reveal has to look for fresh elements after a switch.
+  const t = COPY[nyata ? "nyata" : "gaib"];
+  useReveal([nyata]);
   // The carousel over the hand slides to the next project on its own every
   // AUTO_MS while it is on screen; there are no manual controls there. The
   // static collection (reduced motion, no WebGL) has no 3D stage to watch, so
@@ -171,6 +217,12 @@ function Home({ items, profile }) {
     e.preventDefault();
     lenis.current?.scrollTo("#" + id, { duration: 1.8 });
   };
+  // The sections actually on the page, numbered in order: (01) Karya…
+  const shown = SECTIONS.filter(([id]) =>
+    id === "experience" ? profile.experience?.length :
+    id === "certificates" ? profile.certificates?.length : true,
+  );
+  const no = (id) => "(" + String(shown.findIndex(([s]) => s === id) + 1).padStart(2, "0") + ")";
   useGSAP(
     () => {
       state.reduced = reduced;
@@ -183,7 +235,10 @@ function Home({ items, profile }) {
       const tick = (t) => smooth.raf(t * 1000);
       gsap.ticker.add(tick);
       gsap.ticker.lagSmoothing(0);
-      if (!reduced && !fallback) {
+      if (nyata && !reduced) {
+        gsap.from(".nh-in", { opacity: 0, y: 30, duration: 1.2, stagger: 0.07, ease: "power3.out", delay: 0.15 });
+      }
+      if (!reduced && !fallback && !nyata) {
         gsap.from(".hero-top,.hero-bottom,.outfit-switch", {
           opacity: 0,
           y: 8,
@@ -248,7 +303,7 @@ function Home({ items, profile }) {
           )
           .to({}, { duration: 0.01 }, 1);
       }
-      if (!fallback) {
+      if (!fallback && !nyata) {
         // As the portfolio sections slide over the scene, fade the canvas out
         // and stop rendering it once it is fully covered.
         ScrollTrigger.create({
@@ -311,24 +366,32 @@ function Home({ items, profile }) {
         const hash = location.hash;
         const target =
           hash.length > 1 && !hash.startsWith("#/") ? document.querySelector(hash) : null;
-        const saved = takeScroll();
+        // Just switched worlds: open on the section the reader was in.
+        const pending = state.pendingAnchor;
+        state.pendingAnchor = null;
+        const saved = pending ? null : takeScroll();
+        if (pending) {
+          const el = pending.id === "home" ? null : document.getElementById(pending.id);
+          smooth.scrollTo(el ? el.getBoundingClientRect().top + scrollY - pending.offset : 0, { immediate: true, force: true });
+        }
         // The browser may already have jumped to the anchor before Lenis
         // existed, so Lenis's own idea of the scroll is stale: pass an
         // absolute position rather than the element.
-        if (target && hash !== "#home")
+        else if (target && hash !== "#home")
           smooth.scrollTo(target.getBoundingClientRect().top + scrollY, { immediate: true, force: true });
         else if (saved !== null) smooth.scrollTo(saved, { immediate: true, force: true });
+        state.settle?.();
       }));
       return () => {
         smooth.destroy();
         gsap.ticker.remove(tick);
       };
     },
-    { scope: root, dependencies: [reduced, fallback], revertOnUpdate: true },
+    { scope: root, dependencies: [reduced, fallback, nyata], revertOnUpdate: true },
   );
   return (
     <div ref={root}>
-      {!fallback && items.length > 0 && (
+      {!fallback && !nyata && items.length > 0 && (
         <Scene
           items={items}
           onEnterBubble={enterBubble}
@@ -343,17 +406,21 @@ function Home({ items, profile }) {
         <i />
       </div>
       <nav className="site-nav" aria-label="Navigasi utama">
-        {SECTIONS.filter(([id]) =>
-          id === "experience" ? profile.experience?.length :
-          id === "certificates" ? profile.certificates?.length : true,
-        ).map(([id, text]) => (
+        {shown.map(([id]) => (
           <a key={id} href={"#" + id} className={"site-nav-link nav-" + id} onClick={(e) => goTo(e, id)}>
-            {text}
+            {t.nav[id]}
           </a>
         ))}
       </nav>
       <main>
-        <section className="hero" id="home">
+        {/* One section element for both worlds: GSAP wraps the GAIB hero in a
+            pin spacer React does not know about, so swapping the element itself
+            would make React remove it from the wrong parent. */}
+        <section className={"hero" + (nyata ? " hero-nyata" : "")} id="home">
+          {nyata ? (
+            <NyataHero items={items} profile={profile} goTo={goTo} />
+          ) : (
+          <>
           {fallback && (
             <div className="hero-atmosphere" aria-hidden="true">
               <picture>
@@ -460,7 +527,7 @@ function Home({ items, profile }) {
             </div>}
             <div className="zoom-text" aria-live="polite">
               {items.filter(item => item.id === selectedId).map(item => <div className="collection-copy" data-item={item.id} key={item.id}>
-                <p className="collection-caption">Karya lintas dimensi</p>
+                <p className="collection-caption">{item.pusaka ? <>Pusaka · {item.pusaka.name}</> : "Karya lintas dimensi"}</p>
                 <h2>{item.name.split(' ').map((word,i) => <React.Fragment key={i}>{i>0 && <br />}{word}{i===item.name.split(' ').length-1?'.':''}</React.Fragment>)}</h2>
                 <p className="zoom-lead">{item.blurb}</p>
                 <a className="zoom-cta" href={projectHref(item.id)} onClick={rememberScroll}>Lihat detailnya <span aria-hidden="true">↗</span></a>
@@ -472,14 +539,17 @@ function Home({ items, profile }) {
               <p className="swipe-hint">{holding ? "Berhenti sebentar · lepas kursor untuk lanjut" : "Berganti otomatis · scroll untuk semua project"}</p>
             </div>
           </div>
+          </>
+          )}
         </section>
-        <ProjectList items={items} />
-        <About profile={profile} />
-        <Experience experience={profile.experience} />
-        <Certificates certificates={profile.certificates} />
-        <Contact profile={profile} />
+        <ProjectList items={items} no={no("projects")} t={t} />
+        <About profile={profile} no={no("about")} t={t} />
+        <Experience experience={profile.experience} no={no("experience")} t={t} />
+        <Certificates certificates={profile.certificates} no={no("certificates")} t={t} />
+        <Contact profile={profile} no={no("contact")} t={t} />
       </main>
-      <SiteFooter profile={profile} />
+      <SiteFooter profile={profile} nyata={nyata} onCross={onCross} />
+      <Orb nyata={nyata} onCross={onCross} />
       <div ref={label} className="prop-label" aria-live="polite">
         <strong />
         <span />

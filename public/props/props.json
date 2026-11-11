@@ -37,7 +37,13 @@
       "live": "https://gais.oceanspace.co.id"
     },
     "logo": "/logos/gais.svg",
-    "logoBg": "#0e1838"
+    "logoBg": "#0e1838",
+    "pusaka": {
+      "name": "Kunci serenceng",
+      "meaning": "Pemegang kunci semua aset kantor.",
+      "image": "/pusaka/gais.webp",
+      "cutout": "/pusaka/gais-cut.webp"
+    }
   },
   {
     "id": "modul",
@@ -67,7 +73,13 @@
     ],
     "links": {},
     "logo": "/logos/modul.svg",
-    "logoBg": "#2a0d1e"
+    "logoBg": "#2a0d1e",
+    "pusaka": {
+      "name": "Lontar",
+      "meaning": "Kitab tempat ilmu diturunkan ke karyawan baru.",
+      "image": "/pusaka/modul.webp",
+      "cutout": "/pusaka/modul-cut.webp"
+    }
   },
   {
     "id": "unboxing",
@@ -101,7 +113,13 @@
     ],
     "links": {},
     "logo": "/logos/unboxing.png",
-    "logoBg": "#0d0d0d"
+    "logoBg": "#0d0d0d",
+    "pusaka": {
+      "name": "Peti pusaka",
+      "meaning": "Sekali dibuka, isinya seribu lebih gawai.",
+      "image": "/pusaka/unboxing.webp",
+      "cutout": "/pusaka/unboxing-cut.webp"
+    }
   },
   {
     "id": "completemulia",
@@ -135,7 +153,13 @@
     ],
     "links": {},
     "logo": "/logos/completemulia.png",
-    "logoBg": "#2f1a37"
+    "logoBg": "#2f1a37",
+    "pusaka": {
+      "name": "Cincin akik",
+      "meaning": "Perhiasan yang bisa diputar tanpa disentuh.",
+      "image": "/pusaka/completemulia.webp",
+      "cutout": "/pusaka/completemulia-cut.webp"
+    }
   },
   {
     "id": "oceanmall",
@@ -169,7 +193,13 @@
     ],
     "links": {},
     "logo": "/logos/oceanmall.png",
-    "logoBg": "#f4f7fb"
+    "logoBg": "#f4f7fb",
+    "pusaka": {
+      "name": "Pundi bertuah",
+      "meaning": "Kantong yang tak pernah kosong, siang dan malam.",
+      "image": "/pusaka/oceanmall.webp",
+      "cutout": "/pusaka/oceanmall-cut.webp"
+    }
   },
   {
     "id": "tixid",
@@ -199,7 +229,13 @@
     ],
     "links": {},
     "logoText": "TIXID",
-    "logoBg": "#0c1a3d"
+    "logoBg": "#0c1a3d",
+    "pusaka": {
+      "name": "Wayang kulit",
+      "meaning": "Layar tontonan pertama di Nusantara.",
+      "image": "/pusaka/tixid.webp",
+      "cutout": "/pusaka/tixid-cut.webp"
+    }
   },
   {
     "id": "helpdesk",
@@ -229,7 +265,13 @@
     ],
     "links": {},
     "logo": "/logos/helpdesk.svg",
-    "logoBg": "#2b1405"
+    "logoBg": "#2b1405",
+    "pusaka": {
+      "name": "Kentongan",
+      "meaning": "Dipukul siapa saja yang butuh pertolongan.",
+      "image": "/pusaka/helpdesk.webp",
+      "cutout": "/pusaka/helpdesk-cut.webp"
+    }
   },
   {
     "id": "shoestore",
@@ -279,6 +321,12 @@
       ]
     },
     "logo": "/logos/shoestore.png",
-    "logoBg": "#120707"
+    "logoBg": "#120707",
+    "pusaka": {
+      "name": "Terompah",
+      "meaning": "Alas kaki para pengelana.",
+      "image": "/pusaka/shoestore.webp",
+      "cutout": "/pusaka/shoestore-cut.webp"
+    }
   }
 ]

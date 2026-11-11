@@ -2129,3 +2129,200 @@ img.project-logo-mark{width:auto;height:auto;min-height:26%}
 *::-webkit-scrollbar {
   display: none; /* Safari, older Chrome */
 }
+
+/* ---------------------------------------------------------------------- */
+/* Dua dunia: NYATA (light, plain) and GAIB (the candlelit 3D ritual)      */
+/* ---------------------------------------------------------------------- */
+/* NYATA swaps the roles of the six brand tokens: chalk becomes the ground,
+   charcoal the ink, and turmeric/smoke darken until they read on chalk
+   (4.5:1 or better). The rules below catch the colours that were written
+   as literals for the dark ground. */
+html[data-dunia="nyata"] {
+  --kapur: #140a08;
+  --arang: #f7f2ec;
+  --kunyit: #94650a;
+  --asap: #6e564f;
+  --ink-soft: #4a3832;
+  --line: rgba(20, 10, 8, 0.12);
+}
+[data-dunia="nyata"] .site-nav{background:rgba(247,242,236,.82);border-color:var(--line)}
+[data-dunia="nyata"] .site-nav-link{text-shadow:none}
+[data-dunia="nyata"] .section-lead{color:var(--ink-soft)}
+[data-dunia="nyata"] .text-link{border-color:rgba(20,10,8,.35)}
+[data-dunia="nyata"] :is(.projects,.about,.experience,.certificates,.contact,.site-footer){border-color:var(--line)}
+[data-dunia="nyata"] .project-shot{box-shadow:0 30px 70px rgba(43,21,18,.16);outline-color:var(--line)}
+[data-dunia="nyata"] .project-logo-text{color:#f7f2ec}
+[data-dunia="nyata"] :is(.project-summary,.timeline-item ul,.case-story p,.case-features li){color:var(--ink-soft)}
+[data-dunia="nyata"] .about-figure{background:#e9dfd4}
+[data-dunia="nyata"] .cert-card{background:#fffaf4;border-color:var(--line)}
+[data-dunia="nyata"] .cert-card:hover{border-color:var(--kunyit)}
+[data-dunia="nyata"] .contact{background:radial-gradient(ellipse at 85% 110%,rgba(224,90,78,.14),transparent 60%),var(--arang)}
+[data-dunia="nyata"] :is(.contact-link,.case-features li){border-color:rgba(20,10,8,.18)}
+[data-dunia="nyata"] .contact-link:hover{background:rgba(148,101,10,.07)}
+[data-dunia="nyata"] .contact-cv:hover{background:#7d5508}
+[data-dunia="nyata"] .case-bar{background:rgba(247,242,236,.88);border-color:var(--line)}
+[data-dunia="nyata"] .case-button.is-ghost{border-color:rgba(20,10,8,.4)}
+[data-dunia="nyata"] .case-hero{outline-color:var(--line);box-shadow:0 40px 100px rgba(43,21,18,.16)}
+[data-dunia="nyata"] .case-gallery img{outline-color:var(--line)}
+[data-dunia="nyata"] :is(.case-meta,.case-nav,.case-nav a.is-next){border-color:var(--line)}
+[data-dunia="nyata"] .case-nav a:hover{background:rgba(148,101,10,.07)}
+/* The intro is the threshold: it stays dark in both worlds. */
+[data-dunia="nyata"] .intro{color:#f7f2ec}
+[data-dunia="nyata"] .intro-count span{color:#8a6f68}
+
+/* NYATA hero: who, what, where on one screen. */
+.hero.hero-nyata{height:auto;min-height:100svh;pointer-events:auto;overflow:visible;display:flex;flex-direction:column;padding:120px clamp(20px,6.2vw,110px) 110px}
+.nh{display:flex;flex-direction:column;flex:1;gap:56px}
+.nh-wordmark{position:absolute;top:34px;left:clamp(20px,6.2vw,110px);height:35px;font-size:22px}
+.nh-grid{flex:1;display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,.62fr);gap:clamp(30px,6vw,110px);align-items:center}
+.nh-title{font-size:clamp(50px,7.2vw,124px);line-height:.92;letter-spacing:-.04em}
+.nh-title>span{display:block}
+.nh-title .hollow{-webkit-text-stroke-width:2px}
+.nh-lead{margin-top:34px;max-width:50ch;font-size:clamp(16px,1.3vw,20px);line-height:1.65;color:var(--ink-soft,#cdb9b0)}
+.nh-actions{display:flex;flex-wrap:wrap;align-items:center;gap:20px 34px;margin-top:40px}
+.nh-button{display:inline-flex;align-items:center;gap:12px;padding:16px 26px;border-radius:40px;background:var(--kapur);color:var(--arang);font-size:15px;font-weight:500;transition:background .25s ease,gap .25s ease}
+.nh-button:hover{background:#3a201b;gap:16px}
+.nh-card{margin:0;justify-self:end;width:100%;max-width:360px;padding:12px 12px 18px;border-radius:18px;background:#fffaf4;border:1px solid var(--line,rgba(247,242,236,.12));box-shadow:0 30px 70px rgba(43,21,18,.14);rotate:2.5deg}
+.nh-card img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;object-position:top;border-radius:10px;background:#e9dfd4}
+.nh-card figcaption{display:flex;flex-direction:column;gap:4px;padding:16px 6px 0}
+.nh-card strong{font-size:15px;font-weight:500}
+.nh-card span{font-family:Bitter,serif;font-size:14px;color:var(--kunyit)}
+.nh-facts{display:flex;flex-wrap:wrap;gap:18px clamp(30px,6vw,90px);margin:0;padding-top:26px;border-top:1px solid var(--line,rgba(247,242,236,.12))}
+.nh-facts dt{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--asap)}
+.nh-facts dd{margin:8px 0 0;font-size:16px}
+@media(max-width:800px){
+ .hero.hero-nyata{padding:104px 20px 120px}
+ .nh{gap:40px}
+ .nh-wordmark{top:26px;left:20px;font-size:18px}
+ .nh-grid{grid-template-columns:1fr;gap:40px;align-items:start}
+ .nh-title{font-size:clamp(44px,13vw,72px)}
+ /* On a phone the photo shrinks to an ID chip above the copy. */
+ .nh-card{order:-1;justify-self:start;max-width:none;display:flex;align-items:center;gap:14px;padding:8px 18px 8px 8px;border-radius:60px;rotate:none;box-shadow:none;width:auto}
+ .nh-card img{width:52px;height:52px;aspect-ratio:1;border-radius:50%}
+ .nh-card figcaption{padding:0}
+ .nh-card strong{font-size:14px}
+ .nh-card span{font-size:13px}
+}
+
+/* World switch: a pill pinned to the bottom centre of every page. */
+.dunia-switch{position:fixed;left:50%;bottom:22px;translate:-50% 0;z-index:35;display:grid;grid-template-columns:1fr 1fr;padding:5px;border-radius:40px;background:rgba(20,10,8,.72);border:1px solid rgba(247,242,236,.14);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 14px 40px rgba(0,0,0,.35)}
+.dunia-thumb{position:absolute;top:5px;bottom:5px;left:5px;width:calc(50% - 5px);border-radius:40px;background:#f7f2ec;transition:transform .55s var(--ease-out),background .55s ease}
+.dunia-switch[data-on="gaib"] .dunia-thumb{transform:translateX(100%);background:#2b1512;box-shadow:inset 0 0 0 1px rgba(224,90,78,.45)}
+.dunia-opt{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:9px;min-width:104px;padding:11px 20px;border-radius:40px;background:none;font-size:13px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:rgba(247,242,236,.62);transition:color .35s ease}
+.dunia-opt[aria-pressed="true"]{color:#f7f2ec}
+.dunia-opt:not([aria-pressed="true"]):hover{color:#f7f2ec}
+.dunia-dot{width:8px;height:8px;border-radius:50%}
+.dunia-dot.is-nyata{background:#e8b33c;box-shadow:0 0 0 3px rgba(232,179,60,.18)}
+.dunia-dot.is-gaib{background:var(--sirih);box-shadow:0 0 10px 2px rgba(224,90,78,.6)}
+[data-dunia="nyata"] .dunia-switch{background:rgba(255,250,244,.78);border-color:rgba(20,10,8,.12);box-shadow:0 14px 40px rgba(43,21,18,.14)}
+[data-dunia="nyata"] .dunia-thumb{background:#140a08}
+[data-dunia="nyata"] .dunia-opt{color:rgba(20,10,8,.55)}
+[data-dunia="nyata"] .dunia-opt[aria-pressed="true"]{color:#f7f2ec}
+[data-dunia="nyata"] .dunia-opt:not([aria-pressed="true"]):hover{color:#140a08}
+@media(max-width:700px){
+ .dunia-switch{bottom:16px}
+ .dunia-opt{min-width:88px;padding:10px 14px;font-size:12px}
+ /* Things that sat on the bottom edge move up above the pill. */
+ .hero-bottom{bottom:78px}
+ .zoom-panel .zoom-cards{bottom:78px}
+ .zoom-panel{padding-bottom:150px}
+}
+@media(prefers-reduced-motion:reduce){.dunia-thumb{transition:none}}
+
+/* The smoke veil between worlds (driven by GSAP in src/dunia.jsx). The sheet
+   is 180vh: a soft rising edge, a solid body that covers the screen, and a
+   soft trailing edge so the reveal has no hard line either. */
+.dunia-veil{position:fixed;inset:0;z-index:95;pointer-events:none;visibility:hidden;overflow:hidden;--veil:#140a08}
+.dunia-veil.is-on{visibility:visible;pointer-events:auto}
+.dunia-veil-sheet{position:absolute;left:-10%;right:-10%;top:0;height:180vh;will-change:transform;background:linear-gradient(to bottom,transparent 0,var(--veil) 25%,var(--veil) 86%,transparent 100%)}
+/* Billows along the rising edge and a faint ember line just under them. */
+.dunia-veil-sheet::before{content:"";position:absolute;left:0;right:0;top:9%;height:18%;filter:blur(22px);background:radial-gradient(28% 60% at 12% 70%,var(--veil) 60%,transparent 62%),radial-gradient(24% 55% at 36% 55%,var(--veil) 60%,transparent 62%),radial-gradient(30% 65% at 62% 72%,var(--veil) 60%,transparent 62%),radial-gradient(22% 50% at 86% 52%,var(--veil) 60%,transparent 62%)}
+.dunia-veil-sheet::after{content:"";position:absolute;left:0;right:0;top:20%;height:7%;filter:blur(18px);background:radial-gradient(50% 50% at 50% 50%,rgba(224,90,78,.32),transparent 70%)}
+.dunia-veil-label{position:absolute;left:0;right:0;top:50%;translate:0 -50%;margin:0;text-align:center;font-family:Bitter,serif;font-size:clamp(18px,2vw,26px);opacity:0;color:#f7f2ec}
+.dunia-veil[data-to="nyata"] .dunia-veil-label{color:#140a08}
+
+/* ---------------------------------------------------------------------- */
+/* The crystal ball (src/Orb.jsx)                                          */
+/* ---------------------------------------------------------------------- */
+/* Drawn at 100px and scaled by the frame loop, so moving and resizing it
+   never touches layout. */
+.orb{position:fixed;left:0;top:0;z-index:34;width:100px;height:100px;padding:0;border-radius:50%;background:none;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;will-change:transform,opacity;visibility:hidden}
+.orb.is-holding{cursor:grabbing}
+.orb>span{position:absolute;inset:0;border-radius:50%;pointer-events:none}
+/* NYATA: clear glass. A pale body, warm light through the bottom, a thin
+   spectral rim and a sharp window highlight. */
+.orb-glass{background:radial-gradient(42% 26% at 50% 80%,rgba(232,179,60,.75),transparent 100%),radial-gradient(64% 40% at 50% 28%,rgba(20,10,8,.22),transparent 100%),radial-gradient(circle at 50% 50%,rgba(255,255,255,.35) 0,rgba(255,255,255,.12) 44%,rgba(43,21,18,.42) 84%,rgba(20,10,8,.72) 100%);box-shadow:inset 0 -5px 12px rgba(255,255,255,.6),0 14px 20px -8px rgba(43,21,18,.45);backdrop-filter:blur(3px)}
+.orb-glass::after{content:"";position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 200deg,#e05a4e,#e8b33c,#9fd8c8,#8f86e8,#e05a4e);-webkit-mask:radial-gradient(circle,transparent 62%,#000 72%,#000 100%);mask:radial-gradient(circle,transparent 62%,#000 72%,#000 100%);opacity:.75;mix-blend-mode:overlay;animation:orb-spin 9s linear infinite}
+.orb-smoke{opacity:0;background:radial-gradient(40% 36% at 38% 60%,rgba(224,90,78,.95),transparent 70%),radial-gradient(34% 30% at 64% 40%,rgba(232,179,60,.7),transparent 70%),radial-gradient(30% 34% at 52% 72%,rgba(247,242,236,.35),transparent 70%);filter:blur(6px);animation:orb-spin 7s linear infinite reverse;transition:opacity .6s ease}
+.orb-shine{background:radial-gradient(18% 13% at 34% 27%,rgba(255,255,255,.95),rgba(255,255,255,0) 100%),radial-gradient(9% 6% at 66% 76%,rgba(255,255,255,.55),rgba(255,255,255,0) 100%)}
+/* GAIB: dark glass full of coral smoke, glowing from inside. */
+.orb.is-gaib .orb-glass{background:radial-gradient(circle at 50% 50%,#2b1512 0,#1a0c0a 62%,#3a1a15 100%);box-shadow:inset 0 0 18px rgba(224,90,78,.55),inset 0 -8px 16px rgba(232,179,60,.18),0 0 34px rgba(224,90,78,.38);backdrop-filter:none}
+.orb.is-gaib .orb-glass::after{opacity:.35}
+.orb.is-gaib .orb-smoke{opacity:1}
+.orb.is-gaib .orb-shine{opacity:.75}
+/* Hold ring: fills clockwise as --p goes 0 → 1 (GSAP). */
+.orb-ring{--p:0;inset:-9px!important;background:conic-gradient(var(--kunyit) calc(var(--p) * 360deg),transparent 0);-webkit-mask:radial-gradient(circle,transparent 66%,#000 68%);mask:radial-gradient(circle,transparent 66%,#000 68%);opacity:0;transition:opacity .2s ease}
+.orb.is-holding .orb-ring,.orb:hover .orb-ring{opacity:1}
+.orb:hover .orb-ring{background:conic-gradient(var(--kunyit) calc(var(--p) * 360deg),rgba(232,179,60,.18) 0)}
+.orb:focus-visible{outline-offset:8px}
+@keyframes orb-spin{to{transform:rotate(1turn)}}
+/* The typed full stop gives way when the ball sits on it. */
+.orb-dock{transition:color .35s ease,-webkit-text-stroke-color .35s ease}
+.orb-dock.is-docked{color:transparent;-webkit-text-stroke-color:transparent}
+/* The cursor label. */
+.orb-label{position:fixed;left:0;top:0;z-index:36;margin:0;padding:7px 12px;border-radius:30px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap;pointer-events:none;color:#f7f2ec;background:rgba(20,10,8,.82);opacity:0;transition:opacity .25s ease}
+.orb-label.is-on{opacity:1}
+[data-dunia="nyata"] .orb-label{background:#140a08}
+@media(prefers-reduced-motion:reduce){.orb-glass::after,.orb-smoke{animation:none}}
+
+/* GAIB: the heirloom each project is kept as, under its tagline. */
+.project-pusaka{margin-top:18px;max-width:44ch;font-size:14px;line-height:1.55;color:var(--asap)}
+.project-pusaka span{display:inline-block;margin-right:8px;padding:3px 9px;border:1px solid rgba(224,90,78,.45);border-radius:20px;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--sirih);vertical-align:1px}
+
+/* GAIB: the heirloom stage. The square photo sits whole in the 16:10 frame,
+   its edges fading into a ground matched to the photos; the screenshot
+   (the vision) lies on top, clipped to a circle of radius --r at --x/--y. */
+@property --r{syntax:"<length-percentage>";inherits:false;initial-value:0px}
+.pusaka-stage{aspect-ratio:16/10;background:radial-gradient(ellipse at 50% 55%,#1c0b05 0,#100603 70%);cursor:none}
+.pusaka-object{position:absolute;top:0;left:50%;height:100%;width:auto;aspect-ratio:1;translate:-50% 0;-webkit-mask:radial-gradient(closest-side,#000 72%,transparent 100%);mask:radial-gradient(closest-side,#000 72%,transparent 100%);transition:scale 1.2s var(--ease-out),filter .5s ease}
+.pusaka-vision{position:absolute;inset:0;--r:0px;clip-path:circle(var(--r) at var(--x,50%) var(--y,50%));transition:--r .5s var(--ease-out)}
+.pusaka-vision .project-parallax,.pusaka-vision img{display:block;width:100%;height:100%}
+.pusaka-lens{position:absolute;left:var(--x,50%);top:var(--y,50%);width:240px;height:240px;translate:-50% -50%;border-radius:50%;pointer-events:none;border:1px solid rgba(247,242,236,.45);box-shadow:inset 0 0 34px rgba(224,90,78,.55),inset 0 0 6px rgba(247,242,236,.4),0 0 40px rgba(224,90,78,.35);opacity:0;scale:.2;transition:opacity .35s ease,scale .5s var(--ease-out)}
+.pusaka-hint{position:absolute;left:18px;bottom:16px;padding:6px 12px;border-radius:30px;background:rgba(20,10,8,.7);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#cdb9b0;transition:opacity .3s ease}
+.pusaka-stage.is-lensing .pusaka-vision{--r:120px}
+.pusaka-stage.is-lensing .pusaka-lens{opacity:1;scale:1}
+.pusaka-stage.is-lensing .pusaka-hint{opacity:0}
+.pusaka-stage.is-lensing .pusaka-object{filter:brightness(.7)}
+.project-row:hover .pusaka-object{scale:1.04}
+/* The settle-in zoom belongs to the plain screenshot rows. */
+.pusaka-vision .project-screenshot{animation:none!important}
+/* Touch: no cursor to aim, so once the row is in, the heirloom holds a beat
+   and then the vision opens from the centre and stays. */
+@media(hover:none){
+ .pusaka-stage{cursor:auto}
+ .pusaka-hint{display:none}
+ .project-row.is-in .pusaka-vision{--r:75%;transition:--r 1.4s cubic-bezier(.76,0,.24,1) 1.6s}
+ .project-row.is-in .pusaka-object{filter:brightness(.6);transition:filter 1.4s ease 1.6s}
+}
+@media(prefers-reduced-motion:reduce){.pusaka-vision,.pusaka-lens,.pusaka-object{transition:none!important}}
+
+/* NYATA: the projects as a grid you can scan in one pass. */
+.project-grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:64px clamp(24px,3.4vw,52px)}
+.project-card>a{display:flex;flex-direction:column;height:100%}
+.project-card-shot{display:block;border-radius:12px;overflow:hidden;background:#e9dfd4;outline:1px solid var(--line,rgba(247,242,236,.1));box-shadow:0 18px 44px rgba(43,21,18,.1)}
+.project-card-shot img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top;transition:transform .9s var(--ease-out)}
+.project-card>a:hover .project-card-shot img{transform:scale(1.03)}
+.project-card-meta{margin-top:22px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--asap)}
+.project-card h3{margin-top:10px;font-size:clamp(26px,2.4vw,38px);line-height:1;letter-spacing:-.03em}
+.project-card-summary{margin-top:14px;font-size:15px;line-height:1.6;color:var(--ink-soft,#d9c8bf);max-width:52ch}
+.project-card-stack{margin-top:12px;font-size:13px;color:var(--asap)}
+.project-card-link{align-self:flex-start;margin-top:auto;padding-top:20px;display:inline-flex;gap:10px;font-size:14px;border-bottom:1px solid rgba(20,10,8,.35);padding-bottom:4px;transition:gap .25s ease,color .25s ease,border-color .25s ease}
+.project-card>a:hover .project-card-link{gap:14px;color:var(--kunyit);border-color:var(--kunyit)}
+@media(max-width:800px){.project-grid{grid-template-columns:1fr;gap:56px}}
+
+/* Footer invitation to the other world. */
+.footer-cross{padding:0;background:none;font-size:12px;color:var(--kapur);border-bottom:1px solid currentColor;padding-bottom:2px;transition:color .25s ease}
+.footer-cross:hover{color:var(--kunyit)}
+.footer-cross-ask{color:var(--asap)}
+/* The footer row ends above the world switch on a phone. */
+@media(max-width:700px){.site-footer{padding-bottom:90px}}

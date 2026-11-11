@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useMemo, useRef, useState } from "react";
+import React, { Suspense, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import {
   Environment,
@@ -69,11 +69,31 @@ function ProjectMedallion({ item }) {
     </group>
   );
 }
+// A project as its heirloom: the cut-out photo (scripts/pusaka.mjs) on a plane
+// in the same 1.6-unit box, so it floats over the palm as the object itself.
+// The photo is lit already, so it stays out of tone mapping and the scene
+// lights, like the medallion faces.
+const PUSAKA_SIZE = 1.75;
+function ProjectPusaka({ item }) {
+  const texture = useTexture(item.pusaka.cutout);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  texture.anisotropy = 4;
+  return (
+    <mesh>
+      <planeGeometry args={[PUSAKA_SIZE, PUSAKA_SIZE]} />
+      <meshBasicMaterial map={texture} transparent depthWrite={false} toneMapped={false} />
+    </mesh>
+  );
+}
+const propSrc = (item) => item.pusaka?.cutout ?? medallionSrc(item);
 // Which prop is showcased above the hand at the end of the zoom, and where it
 // sits relative to the palm (in bubble-radius units, tuned against the render).
 // Project cards are wider than the old objects, so on a phone they sit a little
 // higher and smaller to clear the copy below.
 const SHOWCASE = { up: 1.1, side: -0.56, z: 0.5, scale: 0.47, upMobile: 1.8, scaleMobile: 0.25, sideMobile: 0.16 };
+// A heirloom has no rim to set it off from the patterned vest, so it floats
+// straight over the open palm, toward the dark room on the right.
+const PUSAKA_SHOWCASE = { ...SHOWCASE, up: 0.95, side: -0.08, scale: 0.54, upMobile: 1.75, scaleMobile: 0.27, sideMobile: -0.02 };
 
 // Signed distance of a card from the selected one, around the ring, so going
 // from the last project to the first still slides the short way.
@@ -94,6 +114,10 @@ function Prop({ item, index, count, progress }) {
   const showcase = useMemo(() => new THREE.Vector3(), []);
   const bound = 1.39; // conservative bound for a model normalized to a 1.6-unit box
   const slide = useRef(ringOffset(index, s.selectedIndex ?? 0, count));
+  // A heirloom is a flat cut-out photo: it turns a third as far as a medallion
+  // so it never shows its edge.
+  const tilt = item.pusaka?.cutout ? 0.33 : 1;
+  const SHOW = item.pusaka?.cutout ? PUSAKA_SHOWCASE : SHOWCASE;
   useFrame(({ clock }, dt) => {
     if (!ref.current) return;
     const p = progress.current;
@@ -132,9 +156,9 @@ function Prop({ item, index, count, progress }) {
       const rise = range(p, JOURNEY.dollStart, JOURNEY.dollEnd);
       const r = s.bubbleRadius;
       showcase.set(
-        s.palmX + r * (mobile ? SHOWCASE.sideMobile : SHOWCASE.side),
-        s.palmY + r * (mobile ? SHOWCASE.upMobile : SHOWCASE.up),
-        SHOWCASE.z,
+        s.palmX + r * (mobile ? SHOW.sideMobile : SHOW.side),
+        s.palmY + r * (mobile ? SHOW.upMobile : SHOW.up),
+        SHOW.z,
       );
       // Carousel: neighbours wait one card-width to the side and a little back.
       showcase.x += sl * r * (mobile ? 1.5 : 1.9);
@@ -143,15 +167,15 @@ function Prop({ item, index, count, progress }) {
       // as one piece instead of each card wobbling on its own.
       if (!s.reduced) showcase.y += Math.sin(time * .8) * r * .045;
       target.lerp(showcase, rise);
-      const showScale = mobile ? SHOWCASE.scaleMobile : SHOWCASE.scale;
+      const showScale = mobile ? SHOW.scaleMobile : SHOW.scale;
       const scale = lerp(heroScale, showScale * (.86 + near * .14), rise);
       ref.current.position.copy(target);
       ref.current.scale.setScalar(scale);
       // A fixed three-quarter lean toward the copy, turning as it slides.
       ref.current.rotation.set(
-        lerp(Math.sin(time * .48) * .23, .04, rise),
-        lerp(Math.sin(time * 0.37) * 0.48, -.16 - sl * .45, rise),
-        lerp(Math.sin(time * .43) * .20, 0, rise),
+        lerp(Math.sin(time * .48) * .23, .04, rise) * tilt,
+        lerp(Math.sin(time * 0.37) * 0.48, -.16 - sl * .45, rise) * tilt,
+        lerp(Math.sin(time * .43) * .20, 0, rise) * tilt,
       );
       // Steep falloff: a card only reads once it is nearly in front, so the one
       // sliding in never sits solid over the copy column.
@@ -173,9 +197,9 @@ function Prop({ item, index, count, progress }) {
     ref.current.position.copy(target);
     ref.current.scale.setScalar(heroScale);
     ref.current.rotation.set(
-      Math.sin(time * 0.48 + index) * 0.23,
-      Math.sin(time * 0.37 + index) * 0.48,
-      Math.sin(time * 0.43 + index) * 0.20,
+      Math.sin(time * 0.48 + index) * 0.23 * tilt,
+      Math.sin(time * 0.37 + index) * 0.48 * tilt,
+      Math.sin(time * 0.43 + index) * 0.20 * tilt,
     );
     ref.current.visible = fade < 0.999 && s.outro < 0.999;
     ref.current.traverse((n) => {
@@ -190,7 +214,7 @@ function Prop({ item, index, count, progress }) {
     <group ref={ref}>
       <ModelBoundary>
         <Suspense fallback={null}>
-          <ProjectMedallion item={item} />
+          {item.pusaka?.cutout ? <ProjectPusaka item={item} /> : <ProjectMedallion item={item} />}
         </Suspense>
       </ModelBoundary>
     </group>
@@ -275,7 +299,7 @@ function World({ items, onEnterBubble, reduced }) {
   const heroEnv = useMemo(() => new THREE.Scene(), []);
   const lastPhase = useRef("");
   useEffect(() => {
-    items.forEach((item) => useTexture.preload(medallionSrc(item)));
+    items.forEach((item) => useTexture.preload(propSrc(item)));
   }, [items]);
   useFrame((_, dt) => {
     const k = 1 - Math.pow(0.001, Math.min(dt, 0.1));
@@ -376,6 +400,15 @@ export default function Scene(props) {
     document.addEventListener("visibilitychange", onVisibility);
     return () => document.removeEventListener("visibilitychange", onVisibility);
   }, []);
+  // Unmounting the canvas (switching to NYATA) disposes the renderer, which
+  // loses the context on purpose; only a loss while mounted is a failure.
+  const mounted = useRef(true);
+  useLayoutEffect(() => {
+    mounted.current = true;
+    return () => {
+      mounted.current = false;
+    };
+  }, []);
   return (
     <div className="canvas-container">
       <Canvas
@@ -385,7 +418,9 @@ export default function Scene(props) {
         gl={{ alpha: true, antialias: true }}
         onCreated={({ gl }) => {
           gl.outputColorSpace = THREE.SRGBColorSpace;
-          gl.domElement.addEventListener("webglcontextlost", props.onFail);
+          gl.domElement.addEventListener("webglcontextlost", () => {
+            if (mounted.current) props.onFail();
+          });
         }}
       >
         <PerformanceMonitor onDecline={() => setDpr(1)} />

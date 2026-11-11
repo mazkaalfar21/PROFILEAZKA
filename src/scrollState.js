@@ -12,6 +12,10 @@ export const scrollState = {
   entrance: 0,
   reduced: false,
   outfit: 0, // index into OUTFITS; the hero switcher writes it, the character plate follows
+  // Switching worlds: the section to reopen on, and the callback Home calls
+  // once it has rebuilt and scrolled there (src/main.jsx).
+  pendingAnchor: null,
+  settle: null,
 
   // Hero stage. The frame loop writes these; every hero component reads them,
   // so the bubble, the props orbiting it and the parallax layers all agree on
