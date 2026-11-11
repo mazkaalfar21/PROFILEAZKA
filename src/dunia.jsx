@@ -15,12 +15,15 @@ export const WORLDS = [
 const BG = { nyata: "#f7f2ec", gaib: "#140a08" };
 const ARRIVE = { nyata: "Kembali ke dunia nyata", gaib: "Masuk ke dunia gaib" };
 
+// A first visit opens in NYATA, the plain version; the visitor can cross to
+// GAIB from there, and that choice is remembered.
+export const DEFAULT_DUNIA = "nyata";
 export function savedDunia() {
   try {
     const v = localStorage.getItem(DUNIA_KEY);
-    return v === "nyata" || v === "gaib" ? v : "gaib";
+    return v === "nyata" || v === "gaib" ? v : DEFAULT_DUNIA;
   } catch {
-    return "gaib";
+    return DEFAULT_DUNIA;
   }
 }
 

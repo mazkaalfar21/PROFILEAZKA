@@ -10,8 +10,23 @@ await mkdir("artifacts", { recursive: true });
 const PIN_END = 2.2; // JOURNEY.scrollVh / 100
 const PROJECTS = JSON.parse(await readFile("public/props/props.json", "utf8")).length;
 const CERTIFICATES = JSON.parse(await readFile("public/profile.json", "utf8")).certificates?.length ?? 0;
+// Most checks walk through GAIB (the 3D journey). A first visit opens in
+// NYATA, so those pages start with GAIB chosen, unless a test switches.
+const startInGaib = () => {
+  if (!localStorage.getItem("dukun:dunia")) localStorage.setItem("dukun:dunia", "gaib");
+};
 try {
+  // A first visit lands in NYATA: the light page, no 3D scene.
+  const first = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
+  await first.goto(base);
+  await first.waitForTimeout(4500);
+  assert.equal(await first.evaluate(() => document.documentElement.dataset.dunia), "nyata", "first visit opens in NYATA");
+  assert.equal(await first.locator("canvas").count(), 0, "no 3D scene on a first visit");
+  assert(await first.locator(".hero-nyata h1").isVisible(), "NYATA hero on a first visit");
+  await first.close();
+
   const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
+  await page.addInitScript(startInGaib);
   const errors = [];
   page.on("pageerror", (error) => errors.push(error.message));
   await page.goto(base);
@@ -94,6 +109,7 @@ try {
     hasTouch: true,
     reducedMotion: "reduce",
   });
+  await mobile.addInitScript(startInGaib);
   await mobile.goto(base);
   await mobile.waitForTimeout(2500);
   assert.equal(await mobile.locator(".pin-spacer").count(), 0, "no pin under reduced motion");
@@ -105,6 +121,7 @@ try {
 
   // No WebGL: the canvas is never created; the static hero stands in.
   const noGL = await browser.newPage();
+  await noGL.addInitScript(startInGaib);
   await noGL.addInitScript(() => {
     const get = HTMLCanvasElement.prototype.getContext;
     HTMLCanvasElement.prototype.getContext = function (type, ...args) {
@@ -118,7 +135,7 @@ try {
   assert.equal(await noGL.locator(".project-row").count(), PROJECTS, "project list without WebGL");
 
   console.log(
-    "Passed: hero render, zoom overlay, case study page, prev/next, live link, back to list, portfolio sections, scene fade, world switch, context loss, reduced motion, mobile overflow, no-WebGL.",
+    "Passed: first visit in NYATA, hero render, zoom overlay, case study page, prev/next, live link, back to list, portfolio sections, scene fade, world switch, context loss, reduced motion, mobile overflow, no-WebGL.",
   );
 } finally {
   await browser.close();
