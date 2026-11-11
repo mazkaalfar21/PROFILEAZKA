@@ -1,15 +1,22 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useProgress } from "@react-three/drei";
 
-// The opening ritual shown once per page load, before the site appears: the
-// wordmark rises letter by letter, a counter follows the real asset loading
-// (data first, then the scene's textures), and a curtain lifts onto the page.
+// The opening shown once per page load, before the site appears. The screen
+// is split down the middle: chalk on the left for NYATA, charcoal on the right
+// for GAIB, with the wordmark standing on the seam. The same content is drawn
+// once per side and each copy is clipped to its half, so a letter changes
+// colour exactly where it crosses. A counter follows the real asset loading
+// (data first, then the scene's textures). When it is done, the visitor's
+// world sweeps across the other half and the curtain lifts onto the page.
 // It never finishes before MIN_MS so the sequence can play, and never hangs
 // past MAX_MS if a loader stalls.
-const PHRASES = ["Menyalakan dupa", "Membaca mantra", "Memanggil project", "Membuka gerbang"];
+const PHRASES = {
+  nyata: ["Memuat data", "Menyiapkan project", "Merapikan halaman", "Hampir siap"],
+  gaib: ["Menyalakan dupa", "Membaca mantra", "Memanggil project", "Membuka gerbang"],
+};
 const MIN_MS = 2600;
 const MAX_MS = 9000;
-const EXIT_MS = 1100;
+const EXIT_MS = 1700;
 
 export default function Intro({ ready, name, role, onDone }) {
   const reduced = useRef(matchMedia("(prefers-reduced-motion: reduce)").matches).current;
@@ -42,7 +49,7 @@ export default function Intro({ ready, name, role, onDone }) {
 
   useEffect(() => {
     if (reduced) return;
-    const timer = setInterval(() => setPhrase((p) => (p + 1) % PHRASES.length), 950);
+    const timer = setInterval(() => setPhrase((p) => (p + 1) % PHRASES.gaib.length), 950);
     return () => clearInterval(timer);
   }, []);
 
@@ -80,16 +87,14 @@ export default function Intro({ ready, name, role, onDone }) {
     };
   }, []);
 
-  return (
-    <div
-      ref={root}
-      className={"intro" + (leaving ? " is-leaving" : "")}
-      role="status"
-      aria-live="polite"
-      aria-label={`Memuat situs, ${shown} persen`}
-    >
-      <div className="intro-glow" aria-hidden="true" />
-      <div className="intro-center" aria-hidden="true">
+  // The world that wins the seam when loading ends: the one the visitor is in.
+  const winner = document.documentElement.dataset.dunia === "nyata" ? "nyata" : "gaib";
+  const side = (world) => (
+    <div className={"intro-side is-" + world} aria-hidden="true">
+      {world === "gaib" && <div className="intro-glow" />}
+      <p className="intro-world is-nyata">Nyata</p>
+      <p className="intro-world is-gaib">Gaib</p>
+      <div className="intro-center">
         <p className="intro-word">
           {"Dukun".split("").map((letter, i) => (
             <span key={i} style={{ animationDelay: `${0.15 + i * 0.07}s` }}>
@@ -104,15 +109,35 @@ export default function Intro({ ready, name, role, onDone }) {
           </p>
         )}
       </div>
-      <div className="intro-bottom" aria-hidden="true">
-        <p className="intro-phrase" key={phrase}>
-          {PHRASES[phrase]}…
+      <div className="intro-bottom">
+        <p className="intro-phrase is-nyata" key={"n" + phrase}>
+          {PHRASES.nyata[phrase]}…
         </p>
-        <p className="intro-count">
-          {String(shown).padStart(3, "0")}
-          <span>%</span>
-        </p>
+        <div className="intro-right">
+          <p className="intro-phrase is-gaib" key={"g" + phrase}>
+            {PHRASES.gaib[phrase]}…
+          </p>
+          <p className="intro-count">
+            {String(shown).padStart(3, "0")}
+            <span>%</span>
+          </p>
+        </div>
       </div>
+    </div>
+  );
+
+  return (
+    <div
+      ref={root}
+      className={"intro" + (leaving ? " is-leaving" : "")}
+      data-win={winner}
+      role="status"
+      aria-live="polite"
+      aria-label={`Memuat situs, ${shown} persen`}
+    >
+      {side("nyata")}
+      {side("gaib")}
+      <div className="intro-seam" aria-hidden="true" />
       <div className="intro-rule" aria-hidden="true">
         <i style={{ transform: `scaleX(${shown / 100})` }} />
       </div>
