@@ -1856,6 +1856,9 @@ input {
 .projects{border-top:1px solid rgba(247,242,236,.08)}
 .project-list{list-style:none;margin:0;padding:0;display:grid;gap:130px}
 .project-row{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:clamp(30px,5vw,80px);align-items:center}
+/* A flipped row mirrors the columns too, so the image keeps the wide one and
+   every panel in the list is the same size. */
+.project-row.is-flipped{grid-template-columns:minmax(0,1fr) minmax(0,1.35fr)}
 .project-row.is-flipped .project-shot{order:2}
 .project-shot{display:block;border-radius:14px;overflow:hidden;background:#24130f;box-shadow:0 30px 80px rgba(0,0,0,.45);outline:1px solid rgba(247,242,236,.1)}
 .project-shot{position:relative}
@@ -2030,7 +2033,7 @@ img.project-logo-mark{width:auto;height:auto;min-height:26%}
  .portfolio-section{padding:90px 20px}
  .section-head{margin-bottom:56px}
  .project-list{gap:80px}
- .project-row{grid-template-columns:1fr;gap:26px}
+ .project-row,.project-row.is-flipped{grid-template-columns:1fr;gap:26px}
  .project-row.is-flipped .project-shot{order:0}
  .about{grid-template-columns:1fr}
  .about-figure{max-width:360px}
