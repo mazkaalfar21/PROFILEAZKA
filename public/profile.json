@@ -24,6 +24,27 @@
   ],
   "certificates": [
     {
+      "title": "React Hooks (useEffect)",
+      "issuer": "MySkill",
+      "date": "11 November 2026",
+      "credentialId": "MS-20261111-hwQnRYBvFeJim7hZ9F1T",
+      "image": "/certificates/myskill-react-hooks-useeffect.jpg"
+    },
+    {
+      "title": "React Hooks",
+      "issuer": "MySkill",
+      "date": "11 November 2026",
+      "credentialId": "MS-20261111-l4i4RM3w2HkjGZVK0Y8x",
+      "image": "/certificates/myskill-react-hooks.jpg"
+    },
+    {
+      "title": "React Forms",
+      "issuer": "MySkill",
+      "date": "11 November 2026",
+      "credentialId": "MS-20261111-3UQzgeZALYfknkRi6W2P",
+      "image": "/certificates/myskill-react-forms.jpg"
+    },
+    {
       "title": "Belajar Dasar AI",
       "issuer": "Dicoding Indonesia",
       "date": "25 September 2025",
