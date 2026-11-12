@@ -39,7 +39,7 @@ no skulls, no blood. Square 1:1.
 | File | Project | Pusaka | `[BENDA]` |
 |---|---|---|---|
 | `gais.png` | GAIS | Kunci serenceng | a heavy iron key ring holding many old brass and iron keys of different sizes, tied with a faded red thread |
-| `modul.png` | Modul Web | Lontar | a bundle of palm-leaf lontar manuscript strips bound with string between two carved wooden covers, slightly fanned open, the leaves carry only faint abstract incised lines and no readable script |
+| `modul.png` | Modul | Lontar | a bundle of palm-leaf lontar manuscript strips bound with string between two carved wooden covers, slightly fanned open, the leaves carry only faint abstract incised lines and no readable script |
 | `unboxing.png` | Unboxing | Peti pusaka | a small antique teak chest with brass corners, the lid slightly open with a soft golden glow coming from inside |
 | `completemulia.png` | Complete Mulia | Cincin akik | a men's silver ring set with a large polished deep red agate stone, standing upright |
 | `oceanmall.png` | OceanMall | Pundi bertuah | a small worn leather pouch tied with a braided cord, a few plain old copper coins with no markings spilling out |

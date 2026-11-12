@@ -49,7 +49,7 @@
     "id": "modul",
     "image": "/projects/modul.jpg",
     "thumb": "/projects/modul-thumb.jpg",
-    "name": "Modul Web",
+    "name": "Modul",
     "nameEn": "Ilmu turun-temurun",
     "blurb": "Training, modul, kuis, dan galeri video materi di satu tempat. Ilmu diturunkan ke karyawan baru tanpa perlu bertapa.",
     "stack": "Laravel 13 · Blade · MySQL",
