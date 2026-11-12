@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { projectHref } from "./router";
 import { SiteFooter, useReveal } from "./sections";
+import ProjectMedia from "./ProjectMedia";
 
 const pad = (n) => String(n).padStart(2, "0");
 
@@ -82,8 +83,10 @@ export default function ProjectPage({ items, profile, id }) {
           )}
         </header>
 
-        <figure className="case-hero reveal">
-          <img src={item.image} alt={`Tampilan utama ${item.name}`} />
+        {/* The project's trailer plays here; its frames are decorative, so the
+            figure carries the description. */}
+        <figure className="case-hero reveal" role="img" aria-label={`Trailer ${item.name}: tampilan aplikasi, fitur utama, dan teknologinya`}>
+          <ProjectMedia item={item} index={index} />
         </figure>
 
         <section className="case-story">

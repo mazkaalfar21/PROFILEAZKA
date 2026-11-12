@@ -3,6 +3,7 @@ import { projectHref, rememberScroll } from "./router";
 import { asset } from "./asset";
 import { Dot } from "./Orb";
 import { COPY } from "./copy";
+import ProjectMedia from "./ProjectMedia";
 
 // The world copy, read from <html data-dunia> when a page does not pass it.
 const worldCopy = (nyata) =>
@@ -76,7 +77,7 @@ export function ProjectList({ items, no, t }) {
             <li key={item.id} className="project-card reveal" style={{ "--rd": (i % 2) * 0.12 + "s" }}>
               <a href={projectHref(item.id)} onClick={rememberScroll}>
                 <span className="project-card-shot">
-                  <img src={item.image} alt="" loading="lazy" />
+                  <ProjectMedia item={item} index={i} cta={c.link} />
                 </span>
                 <span className="project-card-meta">
                   {pad(i + 1)}
@@ -114,7 +115,7 @@ export function ProjectList({ items, no, t }) {
                   <img className="pusaka-object" src={item.pusaka.image} alt="" loading="lazy" />
                   <span className="pusaka-vision">
                     <span className="project-parallax">
-                      <img className="project-screenshot" src={item.image} alt="" loading="lazy" />
+                      <ProjectMedia item={item} index={i} cta={c.link} />
                     </span>
                   </span>
                   <span className="pusaka-lens" />

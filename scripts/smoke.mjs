@@ -65,6 +65,8 @@ try {
   assert(Math.abs(listTop) < 80, `back lands on the project list (top ${listTop})`);
   assert.equal(await page.locator(".project-row").count(), PROJECTS, "every project has a row");
   assert.equal(await page.locator(".project-row .pusaka-object").count(), PROJECTS, "every GAIB row shows its heirloom");
+  assert.equal(await page.locator(".project-row .trailer").count(), PROJECTS, "every project has a trailer");
+  assert(await page.locator(".trailer.is-playing").count() <= 1, "at most one trailer plays at a time");
 
   // Portfolio sections exist and the scene is faded out under them.
   for (const id of ["about", "certificates", "contact"]) assert(await page.locator("#" + id).count(), `#${id} section`);
@@ -135,7 +137,7 @@ try {
   assert.equal(await noGL.locator(".project-row").count(), PROJECTS, "project list without WebGL");
 
   console.log(
-    "Passed: first visit in NYATA, hero render, zoom overlay, case study page, prev/next, live link, back to list, portfolio sections, scene fade, world switch, context loss, reduced motion, mobile overflow, no-WebGL.",
+    "Passed: first visit in NYATA, hero render, zoom overlay, case study page, prev/next, live link, back to list, trailers, portfolio sections, scene fade, world switch, context loss, reduced motion, mobile overflow, no-WebGL.",
   );
 } finally {
   await browser.close();
