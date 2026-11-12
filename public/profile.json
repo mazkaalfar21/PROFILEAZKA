@@ -2,7 +2,7 @@
   "name": "Muhammad Azka Alfarisyi",
   "role": "Forward Deployed Engineer",
   "location": "Bogor",
-  "bio": "Saya Forward Deployed Engineer di Ocean Space Group. Saya membangun aplikasi web dari panel internal kantor sampai toko online dan website brand, kebanyakan dengan Laravel, Filament, React, dan Vue. Saya senang turun langsung ke pengguna, memahami masalahnya, lalu mengubahnya jadi alat yang benar-benar dipakai setiap hari.",
+  "bio": "Saya Forward Deployed Engineer. Saya membangun aplikasi web dari panel internal kantor sampai toko online dan website brand, kebanyakan dengan Laravel, Filament, React, dan Vue. Saya senang turun langsung ke pengguna, memahami masalahnya, lalu mengubahnya jadi alat yang benar-benar dipakai setiap hari.",
   "contacts": {
     "email": "azkaalfarisyi21@gmail.com",
     "whatsapp": "089699405754",
@@ -12,9 +12,9 @@
   "cv": "",
   "experience": [
     {
-      "place": "Ocean Space Group · Divisi IT Support",
+      "place": "PKL di Ocean Space Group · Divisi IT Support",
       "position": "Forward Deployed Engineer",
-      "period": "Juli 2026 – Desember 2026",
+      "period": "21 Juli 2026 – 5 Desember 2026",
       "points": [
         "Membangun aplikasi internal: GAIS (penggabungan dua sistem General Affair jadi satu panel), Modul Web (training karyawan), dan Helpdesk.",
         "Mengembangkan web untuk unit bisnis grup: OceanMall (e-commerce dengan aplikasi mobile), redesign Unboxing, dan website Complete Mulia.",

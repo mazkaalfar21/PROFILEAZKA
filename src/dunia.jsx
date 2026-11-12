@@ -121,11 +121,10 @@ export function NyataHero({ items, profile, goTo }) {
   const sentences = (profile.bio || "").split(/(?<=\.)\s+/);
   const lead = sentences.slice(0, 2).join(" ");
   const short = profile.name.split(" ").slice(-2).join(" ");
-  const place = profile.experience?.[0]?.place?.split(" · ")[0];
   const facts = [
     ["Project", String(items.length).padStart(2, "0")],
+    ["Peran", profile.role],
     profile.location && ["Kota", profile.location],
-    place && ["Sekarang di", place],
   ].filter(Boolean);
   return (
     <div className="nh">
