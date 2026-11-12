@@ -118,7 +118,9 @@ export function uncoverVeil(el) {
 // The NYATA hero: who, what and where in one screen, on a light ground, with
 // the real photo instead of the character.
 export function NyataHero({ items, profile, goTo }) {
-  const sentences = (profile.bio || "").split(/(?<=\.)\s+/);
+  // No lookbehind here: Safari before 16.4 (e.g. iPhone X on older iOS) throws
+  // on `(?<=…)` and the whole page goes blank.
+  const sentences = (profile.bio || "").replace(/\.\s+/g, ".\n").split("\n");
   const lead = sentences.slice(0, 2).join(" ");
   const short = profile.name.split(" ").slice(-2).join(" ");
   const facts = [
