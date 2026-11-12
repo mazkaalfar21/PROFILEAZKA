@@ -274,8 +274,10 @@ function contactLinks(contacts = {}) {
       value: contacts.whatsapp,
       href: "https://wa.me/" + contacts.whatsapp.replace(/\D/g, "").replace(/^0/, "62"),
     });
-  if (contacts.linkedin) links.push({ label: "LinkedIn", value: contacts.linkedin.replace(/^https?:\/\/(www\.)?/, ""), href: withScheme(contacts.linkedin) });
-  if (contacts.github) links.push({ label: "GitHub", value: contacts.github.replace(/^https?:\/\/(www\.)?/, ""), href: withScheme(contacts.github) });
+  // The card shows the account name when profile.json gives one, else the URL.
+  const bare = (url) => url.replace(/^https?:\/\/(www\.)?/, "");
+  if (contacts.linkedin) links.push({ label: "LinkedIn", value: contacts.linkedinName || bare(contacts.linkedin), href: withScheme(contacts.linkedin) });
+  if (contacts.github) links.push({ label: "GitHub", value: contacts.githubName || bare(contacts.github), href: withScheme(contacts.github) });
   return links;
 }
 
